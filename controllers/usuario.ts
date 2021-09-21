@@ -49,10 +49,9 @@ export const postUsuario = async (req:Request, res:Response) => {
 
         await usuarios.save();
 
+        const token = await generarJWTconSala(usuarios.id, 60)
 
-    /*     const token = await generarJWTconSala(usuarios.id, 60)
-
-        await enviarMail(correo, token); */
+        await enviarMail(correo, token); 
         
         res.json({
             ok: true,
