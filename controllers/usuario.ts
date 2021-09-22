@@ -59,7 +59,12 @@ export const postUsuario = async (req:Request, res:Response) => {
         })
         
     } catch (error) {
-        res.status(500).json(error)
+        res.status(500).json(
+            {
+                ok: false,
+                msg: error
+            }
+        )
     }
 
 

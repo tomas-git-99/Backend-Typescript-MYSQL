@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.validarUsuario = exports.deleteUsuario = exports.putUsuario = exports.postUsuario = exports.getUsuarios = void 0;
 const usuario_1 = require("../models/usuario");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const genera_jwt_1 = require("../helpers/genera-jwt");
+const enviar_email_1 = require("../helpers/enviar-email");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 //OBTENER USUARIOS:
 const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -46,16 +48,18 @@ const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         };
         const usuarios = new usuario_1.Usuario(data);
         yield usuarios.save();
-        /*     const token = await generarJWTconSala(usuarios.id, 60)
-    
-            await enviarMail(correo, token); */
+        const token = yield genera_jwt_1.generarJWTconSala(usuarios.id, 60);
+        yield enviar_email_1.enviarMail(correo, token);
         res.json({
             ok: true,
             usuarios
         });
     }
     catch (error) {
-        res.status(500).json(error);
+        res.status(500).json({
+            ok: false,
+            msg: error
+        });
     }
 });
 exports.postUsuario = postUsuario;

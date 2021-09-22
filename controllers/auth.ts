@@ -18,11 +18,15 @@ import { Model } from "sequelize/types";
 
         if(!usuario){
             return res.status(400).json ({
+                ok: false,
+                fallo: 1,
                 msg:'Usuario / Password no son correctos'
             })
         }
         if ( !usuario.estado ) {
             return res.status(400).json ({
+                ok: false,
+                fallo: 2,
                 msg:'Usuario / Password no son correctos'
             })
         }
@@ -31,6 +35,8 @@ import { Model } from "sequelize/types";
 
         if (!validPassword) {
             return res.status(400).json ( {
+                ok: false,
+                fallo: 3,
                 mdg:'Usuario / Password no son correctos'
             });
         }

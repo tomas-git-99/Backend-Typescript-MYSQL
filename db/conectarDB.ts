@@ -6,15 +6,16 @@ dotenv.config();
 
 
 
-/* const db = new Sequelize('chat-sdestructivo', 'root', '12345', {
+const db = new Sequelize('chat-destructivo', 'root', '12345', {
     host: 'localhost',
     dialect: 'mysql',
     //logging: false,
 });
 
 
- */
-const db = new Sequelize(process.env.CONFIGDATA || '', process.env.CONFIGUSER || '', process.env.CONFIGPASSWORD || '', {
+
+
+/* const db = new Sequelize(process.env.CONFIGDATA || '', process.env.CONFIGUSER || '', process.env.CONFIGPASSWORD || '', {
     host: process.env.HOSTNAME,
     port:3306,
     dialect: 'mysql',
@@ -22,7 +23,7 @@ const db = new Sequelize(process.env.CONFIGDATA || '', process.env.CONFIGUSER ||
         ssl:'Amazon RDS'
     },
     //logging: false,
-});
+}); */
 
 
 export default db;

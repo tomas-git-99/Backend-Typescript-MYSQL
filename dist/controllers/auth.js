@@ -23,17 +23,23 @@ const authUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const usuario = yield usuario_1.Usuario.findOne({ where: { correo: correo } });
         if (!usuario) {
             return res.status(400).json({
+                ok: false,
+                fallo: 1,
                 msg: 'Usuario / Password no son correctos'
             });
         }
         if (!usuario.estado) {
             return res.status(400).json({
+                ok: false,
+                fallo: 2,
                 msg: 'Usuario / Password no son correctos'
             });
         }
         const validPassword = bcryptjs_1.default.compareSync(password, usuario.password);
         if (!validPassword) {
             return res.status(400).json({
+                ok: false,
+                fallo: 3,
                 mdg: 'Usuario / Password no son correctos'
             });
         }
