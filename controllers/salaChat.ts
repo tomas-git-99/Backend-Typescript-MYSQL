@@ -63,13 +63,16 @@ export const verificarSalaChat = async (req:Request, res:Response) =>{
        
         const salaID = ids.split('/');
         // opcion de hacerlo con el query y los comandos de mysql
-        
+
+
         const sala   = await SalaChat.findByPk(salaID[1]);
-
+        
+        
+ 
         /* const sala:any = await SalaChat.findAll({where:{ id:salaID[1], attribute: ['titulo', 'tiempo', 'token'] }}) */
-
+        
         const token = verificarTokenExp(sala?.token || '');
-
+        
 
          if( !token ) {
 

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { validator, where } from "sequelize/types";
 import { Usuario, TodoAtributos } from "../models/usuario";
 import bcryptjs from 'bcryptjs'
+import bcrypt from 'bcrypt'
 import { generarJWTconSala } from "../helpers/genera-jwt";
 import { enviarMail } from "../helpers/enviar-email";
 import jwt from 'jsonwebtoken';
@@ -9,6 +10,8 @@ import jwt from 'jsonwebtoken';
 
 //OBTENER USUARIOS:
  export const getUsuarios = async (req:Request, res:Response) => {
+
+
 
     const usuario = await Usuario.findAll(
         { where: {estado:true},
@@ -33,25 +36,40 @@ export const postUsuario = async (req:Request, res:Response) => {
     try {
         const { password, nombre, correo, estado} = req.body;
 
+  
+
         //encriptar password
-        const salt = bcryptjs.genSaltSync();
-        const newPassword = bcryptjs.hashSync( password, salt );
+        const salt = await bcryptjs.genSaltSync(10);
+
+        const newPassword = await bcryptjs.hashSync( password, salt );
+
+        /* let newPassword!:string */
+
+
+
+
 
 
         const data:any = {
             nombre,
             correo,
-            password: newPassword,
+            password: newPassword ,
             estado
         }
+
+
+
+
+
+        console.log(data)
 
         const usuarios:any = new Usuario(data);
 
         await usuarios.save();
 
-        const token = await generarJWTconSala(usuarios.id, 60)
+       /*  const token = await generarJWTconSala(usuarios.id, 60)
 
-        await enviarMail(correo, token); 
+        await enviarMail(correo, token);  */
         
         res.json({
             ok: true,
@@ -72,6 +90,7 @@ export const postUsuario = async (req:Request, res:Response) => {
 
 //ACTUALIZAR DATOS
 export const putUsuario = async (req:Request, res:Response) => {
+
 
     const { id } = req.params;
     const { body } = req;

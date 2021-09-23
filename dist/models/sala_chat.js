@@ -31,9 +31,6 @@ SalaChat.init({
     sala_completa: {
         type: sequelize_1.DataTypes.BOOLEAN,
     },
-    total_msg: {
-        type: sequelize_1.DataTypes.NUMBER,
-    },
     ultimo_msg: {
         type: sequelize_1.DataTypes.STRING,
     },

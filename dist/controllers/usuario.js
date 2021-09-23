@@ -15,8 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.validarUsuario = exports.deleteUsuario = exports.putUsuario = exports.postUsuario = exports.getUsuarios = void 0;
 const usuario_1 = require("../models/usuario");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
-const genera_jwt_1 = require("../helpers/genera-jwt");
-const enviar_email_1 = require("../helpers/enviar-email");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 //OBTENER USUARIOS:
 const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -38,18 +36,21 @@ const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     try {
         const { password, nombre, correo, estado } = req.body;
         //encriptar password
-        const salt = bcryptjs_1.default.genSaltSync();
-        const newPassword = bcryptjs_1.default.hashSync(password, salt);
+        const salt = yield bcryptjs_1.default.genSaltSync(10);
+        const newPassword = yield bcryptjs_1.default.hashSync(password, salt);
+        /* let newPassword!:string */
         const data = {
             nombre,
             correo,
             password: newPassword,
             estado
         };
+        console.log(data);
         const usuarios = new usuario_1.Usuario(data);
         yield usuarios.save();
-        const token = yield genera_jwt_1.generarJWTconSala(usuarios.id, 60);
-        yield enviar_email_1.enviarMail(correo, token);
+        /*  const token = await generarJWTconSala(usuarios.id, 60)
+ 
+         await enviarMail(correo, token);  */
         res.json({
             ok: true,
             usuarios

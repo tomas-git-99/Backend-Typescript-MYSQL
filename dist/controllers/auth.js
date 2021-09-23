@@ -28,19 +28,21 @@ const authUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 msg: 'Usuario / Password no son correctos'
             });
         }
-        if (!usuario.estado) {
-            return res.status(400).json({
-                ok: false,
-                fallo: 2,
-                msg: 'Usuario / Password no son correctos'
-            });
-        }
+        /*         if ( !usuario.estado ) {
+                    return res.status(400).json ({
+                        ok: false,
+                        fallo: 2,
+                        msg:'Usuario / Password no son correctos'
+                    })
+                }
+         */
         const validPassword = bcryptjs_1.default.compareSync(password, usuario.password);
+        console.log(validPassword);
         if (!validPassword) {
             return res.status(400).json({
                 ok: false,
                 fallo: 3,
-                mdg: 'Usuario / Password no son correctos'
+                msg: 'Usuario / Password no son correctos'
             });
         }
         const token = yield genera_jwt_1.generarJWT(usuario.id);

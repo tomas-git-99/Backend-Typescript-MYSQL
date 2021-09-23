@@ -11,7 +11,6 @@ export interface Salainfo {
     token: string;
     estado: boolean;
     sala_completa: boolean;
-    total_msg:number;
     ultimo_msg: string;
     id:number;
     nombre_sin_registro:string;
@@ -25,7 +24,6 @@ export class SalaChat extends Model <Salainfo>{
     public token!: string;
     public estado!: boolean;
     public sala_completa!: boolean;
-    public total_msg !:number;
     public ultimo_msg!: string;
     public id!:number;
     public nombre_sin_registro!:string;
@@ -57,9 +55,6 @@ SalaChat.init(
         },
         sala_completa:{
             type:DataTypes.BOOLEAN, //si en la sala ya entro el usuario
-        },
-        total_msg:{
-                type:DataTypes.NUMBER,
         },
         ultimo_msg:{
             type:DataTypes.STRING,

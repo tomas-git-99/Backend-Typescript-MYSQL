@@ -5,6 +5,7 @@ import bcryptjs from 'bcryptjs'
 import sequelize, { Sequelize } from "sequelize/types/lib/sequelize";
 import { Model } from "sequelize/types";
 
+import bcrypt from 'bcrypt'
 
 
 
@@ -23,21 +24,28 @@ import { Model } from "sequelize/types";
                 msg:'Usuario / Password no son correctos'
             })
         }
-        if ( !usuario.estado ) {
+/*         if ( !usuario.estado ) {
             return res.status(400).json ({
                 ok: false,
                 fallo: 2,
                 msg:'Usuario / Password no son correctos'
             })
         }
+ */
 
-        const validPassword = bcryptjs.compareSync( password, usuario.password)
+        const validPassword =  bcryptjs.compareSync( password , usuario.password)
+
+
+
+        console.log(validPassword)
+
+
 
         if (!validPassword) {
             return res.status(400).json ( {
                 ok: false,
                 fallo: 3,
-                mdg:'Usuario / Password no son correctos'
+                msg:'Usuario / Password no son correctos'
             });
         }
 

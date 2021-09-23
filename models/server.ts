@@ -74,8 +74,8 @@ class ServerApp {
 
     router(){
         this.app.use( this.apiPaths.usuarios, userRouter )
-        this.app.use( this.apiPaths.auth, userAuth )
-        this.app.use( this.apiPaths.sala, userSala )
+        this.app.use( this.apiPaths.auth,     userAuth )
+        this.app.use( this.apiPaths.sala,     userSala )
     }
 /*     socket(){
 
