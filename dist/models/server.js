@@ -51,7 +51,7 @@ class ServerApp {
         this.httpServer = new http_1.default.Server(this.app);
         this.io = new SocketIO.Server(this.httpServer, {
             cors: {
-                origin: "http://localhost:4200",
+                origin: "https://chat-destructivo.web.app",
             }
         });
         /*         this.io     = require("socket.io")(this.server, {
@@ -80,6 +80,10 @@ class ServerApp {
         });
     }
     middlewares() {
+        this.app.use(function (req, res, next) {
+            res.header("Access-Control-Allow-Origin", "*");
+            next();
+        });
         this.app.use(cors_1.default());
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.static('public'));
