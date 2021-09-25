@@ -16,7 +16,7 @@ export const enviarMail = (email: string, token:string) => {
         from: "no-replaydestructchat@outlook.com",
         subject: "¡Bienvenido!",
         text: `Gracias por resgistrarte \n Precione el boton para completar el registro`,
-        html: `<a href= "http://localhost:4200/registro/${token}">Aceptar</a>`
+        html: `<a href= "https://chat-destructivo.web.app/registro/${token}">Aceptar</a>`
     
     }).then( resp => {
         console.log("sent email")

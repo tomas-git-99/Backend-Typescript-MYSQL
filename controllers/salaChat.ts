@@ -261,11 +261,13 @@ export const entrarSalaToken = async (req:Request, res:Response) => {
 export const entrarSalaSintoken = async (req:Request, res:Response) => {
 
     try {
+
         const { nombre } = req.body;
     
         const { id } = req.params;
 
         const sala = await SalaChat.findByPk(id);
+        
         await SalaChat.update({ nombre_sin_registro:nombre, sala_completa:true },{ where: {id:id}} );
 
         const token = await generarJWT('0')
